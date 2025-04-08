@@ -1,0 +1,76 @@
+﻿@using ProjetoEmprestimoLivroCurso.Models
+@model LivroModel;
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger text-dark" role="alert">
+        @TempData["MensagemErro"]
+    </div>
+}
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-sucess text-dark" role="alert">
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
+<div class="container mt-5">
+
+        <h2>Detalhes do Livro - @Model.Titulo</h2>
+
+        <div class="text-center">
+            <img src="/imagem/@Model.Capa" style="width:150px; height:200px"/>
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label mt-3">Título:</label>
+            <input type="text" class="form-control shadow-none" asp-for="Titulo" disabled/>
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label mt-3">Autor:</label>
+        <input type="text" class="form-control shadow-none" asp-for="Autor" disabled />
+        </div>
+
+        <div class="mb-1">
+            <label class="form-label mt-3">Descrição:</label>
+        <textarea asp-for="Descricao" class="form-control shadow-none" disabled></textarea>
+        </div>
+
+        <div class="mb-1>
+            <label class="form-label mt-3">Ano Publicação:</label>
+        <input type="text" class="form-control shadow-none" asp-for="AnoPublicacao" disabled />
+        </div>
+
+        <div class="mb-1>
+            <label class="form-label mt-3">Gênero:</label>
+        <input type="text" class="form-control shadow-none" asp-for="Genero" disabled />
+        </div>
+
+
+        <div class="mb-1>
+            <label class="form-label mt-3">Quantidade em Estoque:</label>
+        <input type="number" min="1" class="form-control shadow-none" asp-for="QuantidadeEmEstoque" disabled />
+        </div>
+
+        <div class="mb-1>
+            <label class="form-label mt-3">ISBN:</label>
+        <input type="text" class="form-control shadow-none" asp-for="ISBN" disabled />
+        </div>
+
+        <div class="mb-1>
+            <label class="form-label mt-3">Data Cadastro:</label>
+            <input type="text" class="form-control shadow-none" asp-for="DataDeCadastro" disabled />
+        </div>
+
+        <div class="mb-1>
+            <label class="form-label mt-3">Data Alteração:</label>
+            <input type="text" class="form-control shadow-none" asp-for="DataDeAlteracao" disabled />
+        </div>
+
+        <div class="btn-box d-flex mt-3">
+            <a asp-action="Index" asp-controller="Livro" class="btn btn-info w-100"><i class="bi bi-arrow-left-circle"></i>&nbspVoltar</a>
+        </div>
+
+</div>
