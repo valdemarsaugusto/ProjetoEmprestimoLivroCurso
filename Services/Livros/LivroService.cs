@@ -148,8 +148,12 @@ namespace ProjetoEmprestimoLivroCurso.Services.Livros
                 {
                     livroModel.Capa = nomeCaminhoDaImagem;
                 }
+                else
+                {
+                    livroModel.Capa = livro.Capa;
+                }
 
-                livroModel.DataDeAlteracao = DateTime.Now;
+                    livroModel.DataDeAlteracao = DateTime.Now;
 
                 _context.Update(livroModel);
                 await _context.SaveChangesAsync();

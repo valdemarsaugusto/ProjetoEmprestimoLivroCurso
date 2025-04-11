@@ -1,0 +1,9 @@
+﻿using ProjetoEmprestimoLivroCurso.Models;
+
+namespace ProjetoEmprestimoLivroCurso.Services.Usuario
+{
+    public interface IUsuarioInterface
+    {
+        public Task<List<UsuarioModel>> BuscarUsuarios(int? id);
+    }
+}

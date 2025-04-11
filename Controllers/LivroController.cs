@@ -93,7 +93,7 @@ namespace ProjetoEmprestimoLivroCurso.Controllers
             if (ModelState.IsValid)
             {
                 var livro = await _livroInterface.Editar(livroEdicaoDto, foto);
-                return View();
+                return RedirectToAction("Index");
             }
             else
             {
