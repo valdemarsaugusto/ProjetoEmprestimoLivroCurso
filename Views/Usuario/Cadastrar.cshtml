@@ -1,0 +1,129 @@
+﻿@using ProjetoEmprestimoLivroCurso.Dto.Usuario
+@using ProjetoEmprestimoLivroCurso.Enums
+@model UsuarioCriacaoDto
+
+<div class="container mt-5">
+    <form method="post" asp-action="Cadastrar" asp-controller="Usuario">
+        @if (ViewBag.Perfil != PerfilEnum.Cliente)
+        {
+            <h2>Cadastrar Funcionários</h2>
+        }
+        else
+        {
+            <h2>Cadastrar Clientes</h2>
+        })
+
+        <div class="mb-1">
+            <label>Nome Completo:</label>
+            <input type="text" asp-for="NomeCompleto" class="form-control shadow-none"/>
+            <span asp-validation-for="NomeCompleto" class="text-danger"></span> 
+        </div>
+
+        <div class="mb-1">
+            <label>Usuário:</label>
+            <input type="text" asp-for="Usuario" class="form-control shadow-none" />
+            <span asp-validation-for="Usuario" class="text-danger"></span>
+        </div>
+
+        <div class="mb-1">
+            <label>E-mail:</label>
+            <input type="email" asp-for="Email" class="form-control shadow-none" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        @if (ViewBag.Perfil != PerfilEnum.Cliente)
+        {
+            <div class="mb-1">
+                <label>Perfil:</label>
+                <select asp-for="Perfil" class="form-control shadow-none">
+                    <option value="Administrador" selected>Administrador</option>
+                </select>
+                <span asp-validation-for="Perfil" class="text-danger"></span>
+            </div>
+
+            <div class="mb-1">
+                <label>Turno</label>
+                <select asp-for="Turno" class="form-control shadow-none">
+                    <option value="Manha">Manhã</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Noite">Noite</option>
+                 </select>
+                <span asp-validation-for="Turno" class="text-danger"></span>
+            </div>
+        }
+
+        <div class="col-12 d-flex gap-1 w-100">
+            <div class="mb-1 col-6">
+                <label>Cep:</label>
+                <input type="text" asp-for="Cep" class="form-control shadow-none" />
+                <span asp-validation-for="Cep" class="text-danger"></span> 
+            </div>
+
+            <div class="mb-1 col-6">
+                <label>Estado:</label>
+                <input type="text" asp-for="Estado" class="form-control shadow-none" />
+                <span asp-validation-for="Estado" class="text-danger"></span>
+            </div>
+
+        </div>
+
+        <div class="col-12 d-flex gap-1 w-100">
+            <div class="mb-1 col-8">
+                <label>Logradouro:</label>
+                <input type="text" asp-for="Logradouro" class="form-control shadow-none" />
+                <span asp-validation-for="Logradouro" class="text-danger"></span>
+            </div>
+
+            <div class="mb-1 col-4">
+                <label>Número:</label>
+                <input type="text" asp-for="Numero" class="form-control shadow-none" />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="col-12 d-flex gap-1 w-100">
+            <div class="mb-1 col-6">
+                <label>Bairro:</label>
+                <input type="text" asp-for="Bairro" class="form-control shadow-none" />
+                <span asp-validation-for="Bairro" class="text-danger"></span>
+            </div>
+
+            <div class="mb-1 col-6">
+                <label>Complemento:</label>
+                <input type="text" asp-for="Complemento" class="form-control shadow-none" />
+                <span asp-validation-for="Complemento" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="mb-1">
+            <label>Senha:</label>
+            <input type="password" asp-for="Senha" class="form-control shadow-none" />
+            <span asp-validation-for="Senha" class="text-danger"></span>
+        </div>
+
+        <div class="mb-1">
+            <label>Confirmação senha:</label>
+            <input type="password" asp-for="ConfirmarSenha" class="form-control shadow-none" />
+            <span asp-validation-for="ConfirmarSenha" class="text-danger"></span>
+        </div>
+
+
+        <div class="btn-box d-flex mt-3">
+            <button type="submit" class="btn btn-success w-50 mx-1"><i class="bi bi-plus-circle"></i>&nbspCadastrar</button>
+
+
+
+
+            @if (ViewBag.Perfil == PerfilEnum.Cliente)
+            {
+                <a asp-action="Index" asp-controller="Cliente" asp-route-id="0" class="btn btn-info w-50"><i class="bi bi-arrow-left-circle"></i>&nbspVoltar</a>
+            }
+            else
+            {
+                <a asp-action="Index" asp-controller="Funcionario" class="btn btn-info w-50"><i class="bi bi-arrow-left-circle"></i>&nbspVoltar</a>
+            }
+        </div>
+
+
+    </form>
+</div>

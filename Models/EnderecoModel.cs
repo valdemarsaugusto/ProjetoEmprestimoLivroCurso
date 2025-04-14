@@ -13,8 +13,8 @@ namespace ProjetoEmprestimoLivroCurso.Models
         public string Bairro { get; set; } = string.Empty;
         [Required]
         public string Numero { get; set; } = string.Empty;
-        [Required]
-        public string Cidade { get; set; } = string.Empty;
+
+        public string? Cidade { get; set; }
         [Required]
         public string Estado { get; set; } = string.Empty;
         [Required]

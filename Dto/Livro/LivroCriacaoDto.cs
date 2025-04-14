@@ -1,16 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProjetoEmprestimoLivroCurso.Dto
+namespace ProjetoEmprestimoLivroCurso.Dto.Livro
 {
-    public class LivroEdicaoDto
+    public class LivroCriacaoDto
     {
-        public int Id { get; set; }
-
-        public string? Capa { get; set; }
-
         [Required(ErrorMessage = "Insira um título.")]
         public string Titulo { get; set; } = string.Empty;
-
         [Required(ErrorMessage = "Insira a descrição.")]
         public string Descricao { get; set; } = string.Empty;
         //[Required(ErrorMessage = "Insira uma capa.")]

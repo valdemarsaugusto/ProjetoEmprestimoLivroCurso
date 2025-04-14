@@ -21,6 +21,23 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Home" asp-action="Index">Página Inicial</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav navbar-right">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropp-toggle" href="#" data-bs-toggle="dropdown">Painel Administrativo
+                                  <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu flex-grow-1 bg-primary">
+                                <li><a class="nav-link dropdown-item text-light" asp-controller="Funcionario" asp-action="Index">Usuários</a></li>
+                                <li><a class="nav-link dropdown-item text-light" asp-controller="Cliente" asp-action="Index" asp-route-id="0">Clientes</a></li>
+                                <div class="dropdown-divider"></div>
+                                <li><a class="nav-link dropdown-item text-light" asp-controller="Livro" asp-action="Index">Livros</a></li>
+                                <li><a class="nav-link dropdown-item text-light" asp-controller="Relatório" asp-action="Index">Relatórios</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>

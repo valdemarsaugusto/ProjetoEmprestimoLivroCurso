@@ -5,7 +5,7 @@
 
 $(document).ready(function () {
 
-    $('#Livros').DataTable({
+    $('#registros').DataTable({
         "ordering": true,
         "paging": true,
         "searching": true,

@@ -1,9 +1,11 @@
-﻿using ProjetoEmprestimoLivroCurso.Models;
+﻿using ProjetoEmprestimoLivroCurso.Dto.Usuario;
+using ProjetoEmprestimoLivroCurso.Models;
 
 namespace ProjetoEmprestimoLivroCurso.Services.Usuario
 {
     public interface IUsuarioInterface
     {
         public Task<List<UsuarioModel>> BuscarUsuarios(int? id);
+        public Task<bool> VerificaSeExisteUsuarioEEmail(UsuarioCriacaoDto usuarioCriacaoDto);   
     }
 }

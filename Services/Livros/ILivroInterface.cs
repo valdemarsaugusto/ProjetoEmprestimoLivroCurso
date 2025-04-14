@@ -1,4 +1,4 @@
-﻿using ProjetoEmprestimoLivroCurso.Dto;
+﻿using ProjetoEmprestimoLivroCurso.Dto.Livro;
 using ProjetoEmprestimoLivroCurso.Models;
 
 namespace ProjetoEmprestimoLivroCurso.Services.Livros

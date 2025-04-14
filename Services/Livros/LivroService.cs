@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ProjetoEmprestimoLivroCurso.Data;
-using ProjetoEmprestimoLivroCurso.Dto;
+using ProjetoEmprestimoLivroCurso.Dto.Livro;
 using ProjetoEmprestimoLivroCurso.Models;
 using System.Threading.Tasks;
 
