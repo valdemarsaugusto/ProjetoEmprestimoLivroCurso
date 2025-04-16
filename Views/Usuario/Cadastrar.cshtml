@@ -2,6 +2,21 @@
 @using ProjetoEmprestimoLivroCurso.Enums
 @model UsuarioCriacaoDto
 
+
+@if (TempData["MensagemErro"] != null)
+{
+    <div class="alert alert-danger text-dark" role="alert">
+        @TempData["MensagemErro"]
+    </div>
+}
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-sucess text-dark" role="alert">
+        @TempData["MensagemSucesso"]
+    </div>
+}
+
 <div class="container mt-5">
     <form method="post" asp-action="Cadastrar" asp-controller="Usuario">
         @if (ViewBag.Perfil != PerfilEnum.Cliente)
@@ -55,13 +70,13 @@
         <div class="col-12 d-flex gap-1 w-100">
             <div class="mb-1 col-6">
                 <label>Cep:</label>
-                <input type="text" asp-for="Cep" class="form-control shadow-none" />
+                <input type="text" asp-for="Cep" class="form-control shadow-none" id="input-cep" />
                 <span asp-validation-for="Cep" class="text-danger"></span> 
             </div>
 
             <div class="mb-1 col-6">
                 <label>Estado:</label>
-                <input type="text" asp-for="Estado" class="form-control shadow-none" />
+                <input type="text" asp-for="Estado" class="form-control shadow-none" id="input-estado" />
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
 
@@ -70,13 +85,13 @@
         <div class="col-12 d-flex gap-1 w-100">
             <div class="mb-1 col-8">
                 <label>Logradouro:</label>
-                <input type="text" asp-for="Logradouro" class="form-control shadow-none" />
+                <input type="text" asp-for="Logradouro" class="form-control shadow-none" id="input-logradouro" />
                 <span asp-validation-for="Logradouro" class="text-danger"></span>
             </div>
 
             <div class="mb-1 col-4">
                 <label>Número:</label>
-                <input type="text" asp-for="Numero" class="form-control shadow-none" />
+                <input type="text" asp-for="Numero" class="form-control shadow-none" id="input-numero" />
                 <span asp-validation-for="Numero" class="text-danger"></span>
             </div>
         </div>
@@ -84,13 +99,13 @@
         <div class="col-12 d-flex gap-1 w-100">
             <div class="mb-1 col-6">
                 <label>Bairro:</label>
-                <input type="text" asp-for="Bairro" class="form-control shadow-none" />
+                <input type="text" asp-for="Bairro" class="form-control shadow-none" id="input-bairro" />
                 <span asp-validation-for="Bairro" class="text-danger"></span>
             </div>
 
             <div class="mb-1 col-6">
                 <label>Complemento:</label>
-                <input type="text" asp-for="Complemento" class="form-control shadow-none" />
+                <input type="text" asp-for="Complemento" class="form-control shadow-none" id="input-complemento" />
                 <span asp-validation-for="Complemento" class="text-danger"></span>
             </div>
         </div>
@@ -127,3 +142,32 @@
 
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<script>
+
+    var inputLogradouro = document.querySelector("#input-logradouro");
+    var inputBairro = document.querySelector("#input-bairro");
+    var inputEstado = document.querySelector("#input-estado");
+    var inputComplemento = document.querySelector("#input-complemento");
+    
+    $('#input-cep').focusout(async function(e){
+
+        var target = e.target;
+        var value = target.value;
+        var url = `https://viacep.com.br/ws/${value}/json/`;
+
+        var resposta = await fetch(url);
+        var dados = await resposta.json();  
+
+        inputLogradouro =   dados.logradouro;
+        inputBairro =      dados.bairro;    
+        inputEstado =      dados.uf;    
+        inputComplemento = dados.complemento;
+
+
+    });
+
+
+</script>

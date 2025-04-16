@@ -49,6 +49,18 @@ namespace ProjetoEmprestimoLivroCurso.Controllers
                 TempData["MensagemErro"] = "Verifique os dados informados.";
                 return View(usuarioCriacaoDto);
             }
+
+            var usuario = await _usuarioInterface.Cadastrar(usuarioCriacaoDto);
+            TempData["MensagemSucesso"] = "Cadastro realiazado com sucesso.";
+
+            if(usuario.Perfil != PerfilEnum.Cliente)
+            {
+                return RedirectToAction("Index", "Funcionario");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Cliente", new {Id = 0});
+            }
         }
     }
 }

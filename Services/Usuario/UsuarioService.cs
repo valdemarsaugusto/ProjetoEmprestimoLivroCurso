@@ -2,16 +2,19 @@
 using ProjetoEmprestimoLivroCurso.Data;
 using ProjetoEmprestimoLivroCurso.Dto.Usuario;
 using ProjetoEmprestimoLivroCurso.Models;
+using ProjetoEmprestimoLivroCurso.Services.Autenticacao;
 
 namespace ProjetoEmprestimoLivroCurso.Services.Usuario
 {
     public class UsuarioService : IUsuarioInterface
     {
         private readonly AppDbContent _context;
+        private readonly IAutenticacaoInterface _autenticacaoInterface;
 
-        public UsuarioService(AppDbContent context)
+        public UsuarioService(AppDbContent context, IAutenticacaoInterface autenticacaoInterface)
         {
             _context = context;
+            _autenticacaoInterface = autenticacaoInterface;
         }
         public async Task<List<UsuarioModel>> BuscarUsuarios(int? id)
         {
@@ -33,6 +36,50 @@ namespace ProjetoEmprestimoLivroCurso.Services.Usuario
                 throw new Exception(ex.Message);
             }
 
+        }
+
+        public async Task<UsuarioCriacaoDto> Cadastrar(UsuarioCriacaoDto usuarioCriacaoDto)
+        {
+            try
+            {
+                _autenticacaoInterface.CriarSenhaHash(usuarioCriacaoDto.Senha, out byte[] senhaHash, out byte[] senhaSalt);
+
+                var usuario = new UsuarioModel
+                {
+                    NomeCompleto = usuarioCriacaoDto.NomeCompleto,
+                    Usuario = usuarioCriacaoDto.Usuario,
+                    Email = usuarioCriacaoDto.Email,
+                    Perfil = usuarioCriacaoDto.Perfil,
+                    Turno = usuarioCriacaoDto.Turno,
+                    Situacao = usuarioCriacaoDto.Situacao,
+                    SenhaHash = senhaHash,
+                    SenhaSalt = senhaSalt
+
+                };
+
+                var endereco = new EnderecoModel
+                {
+                    Logradouro = usuarioCriacaoDto.Logradouro,
+                    Bairro = usuarioCriacaoDto.Bairro,
+                    Numero = usuarioCriacaoDto.Numero,
+                    //Cidade = usuarioCriacaoDto.Cidade,
+                    Estado = usuarioCriacaoDto.Estado,
+                    Cep = usuarioCriacaoDto.Cep,
+                    Complemento = usuarioCriacaoDto.Complemento,
+                    Usuario = usuario
+                };
+
+                usuario.Endereco = endereco;
+                _context.Add(usuario);
+                await _context.SaveChangesAsync();  
+
+                return usuarioCriacaoDto;
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<bool> VerificaSeExisteUsuarioEEmail(UsuarioCriacaoDto usuarioCriacaoDto)

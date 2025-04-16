@@ -32,8 +32,8 @@ namespace ProjetoEmprestimoLivroCurso.Dto.Usuario
         public string Bairro { get; set; } = string.Empty;
         [Required(ErrorMessage = "Digite o número.")]
         public string Numero { get; set; } = string.Empty;
-        [Required(ErrorMessage = "Digite a cidade.")]
-        public string Cidade { get; set; } = string.Empty;
+        //[Required(ErrorMessage = "Digite a cidade.")]
+        //public string Cidade { get; set; } = string.Empty;
         [Required(ErrorMessage = "Digite o estado.")]
         public string Estado { get; set; } = string.Empty;
         [Required(ErrorMessage = "Digite o Cep.")]
