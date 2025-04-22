@@ -1,0 +1,146 @@
+﻿@using ProjetoEmprestimoLivroCurso.Enums
+@using ProjetoEmprestimoLivroCurso.Models
+@model UsuarioModel
+
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-selected="true" aria-controls="nav-home">Dados - Gerais</button>
+        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-selected="true" aria-controls="nav-profile">Dados - Endereço</button>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="container mt-5">
+            <form method="post" asp-action="MudarSituacaoUsuario" asp-controller="Usuario">
+
+                <input type="hidden" asp-for="Id" />
+
+                @if(Model.Perfil != PerfilEnum.Cliente)
+                {
+                    <h2>Detalhes do funcionário - @Model.Usuario</h2>
+                }
+                else
+                {
+                    <h2>Detalhes do cliente - @Model.Usuario</h2>
+                }
+
+                <div class="mb-1">
+                    <label>Nome Completo:</label>
+                    <input type="text" asp-for="NomeCompleto" class="form-control shadow-none" disabled />
+                </div>
+
+                <div class="mb-1">
+                    <label>Usuário:</label>
+                    <input type="text" asp-for="Usuario" class="form-control shadow-none" disabled />
+                </div>
+
+                <div class="mb-1">
+                    <label>E-mail:</label>
+                    <input type="email" asp-for="Email" class="form-control shadow-none" disabled />
+                </div>
+
+                @(Model.Perfil != PerfilEnum.Cliente)
+                {
+                    <div class="mb-1">
+                        <label>Perfil:</label>
+                        <input type="text" asp-for="Perfil" class="form-control shadow-none" disabled />
+                    </div>
+
+                    <div class="mb-1">
+                        <label>Turno:</label>
+                        <input type="text" asp-for="Turno" class="form-control shadow-none" disabled />
+                    </div>
+                }
+
+
+                <div class="mb-1">
+                    <label>Situação:</label>
+                    <input value="@(Model.Situacao == true ? "Ativo" : "Inativo")" type="text" class="form-control shadow-none" disabled />
+                </div>
+
+                <div class="mb-1">
+                    <label>Data de Cadastro:</label>
+                    <input type="text" asp-for="DataCadastro" class="form-control shadow-none" disabled />
+                </div>
+
+                <div class="mb-1">
+                    <label>Data de Alteração:</label>
+                    <input type="text" asp-for="DataAlteracao" class="form-control shadow-none" disabled />
+                </div>
+
+                <div class="d-flex mt-3">
+                    @if(Model.Situacao == false)
+                    {
+                        <button type="submit" class="btn btn-success w-100"><i class="bi bi-plus"></i>Ativar Usuário</button>
+                    }else
+                    {
+                        <button type="submit" class="btn btn-danger w-100"><i class="bi bi-x"></i>Inativar Usuário</button>
+                    }
+
+                    @if(Model.Perfil == PerfilEnum.Cliente)
+                    {
+                        <a asp-controller="Cliente" asp-action="Index" asp-route-id="0" class="btn btn-primary w-100 mt-2"><i class="bi bi-arrow-left-circle"></i>Voltar</a>
+                    }else
+                    {
+                        <a asp-controller="Funcionario" asp-action="Index" class="btn btn-primary w-100 mt-2"><i class="bi bi-arrow-left-circle"></i>Voltar</a>
+                    }
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="tab-pane fade" id="nav-profile" aria-labelledby="nav-profile-tab">
+        <div class="container mt-5">
+            <form method="post" asp-action="MudarSituacaoUsuario" asp-controller="Usuario">
+                <input type="hidden" asp-for="Id" />
+                <div class="mb-1">
+                    <label>CEP:</label>
+                    <input type="text" asp-for="Endereco.Cep" class="form-control shadow-none" disabled />
+                </div>
+                <div class="mb-1">
+                    <label>Logradouro:</label>
+                    <input type="text" asp-for="Endereco.Logradouro" class="form-control shadow-none" disabled />
+                </div>
+                <div class="mb-1">
+                    <label>Número:</label>
+                    <input type="text" asp-for="Endereco.Numero" class="form-control shadow-none" disabled />
+                </div>
+                <div class="mb-1">
+                    <label>Bairro:</label>
+                    <input type="text" asp-for="Endereco.Bairro" class="form-control shadow-none" disabled />
+                </div>
+                <div class="mb-1">
+                    <label>Estado:</label>
+                    <input type="text" asp-for="Endereco.Estado" class="form-control shadow-none" disabled />
+                </div>
+                <div class="mb-1">
+                    <label>Complemento:</label>
+                    <input type="text" asp-for="Endereco.Complemento" class="form-control shadow-none" disabled />
+                </div>
+
+                <div class="d-flex mt-3">
+                    @if (Model.Situacao == false)
+                    {
+                        <button type="submit" class="btn btn-success w-100"><i class="bi bi-plus"></i>Ativar Usuário</button>
+                    }
+                    else
+                    {
+                        <button type="submit" class="btn btn-danger w-100"><i class="bi bi-x"></i>Inativar Usuário</button>
+                    }
+
+                    @if (Model.Perfil == PerfilEnum.Cliente)
+                    {
+                        <a asp-controller="Cliente" asp-action="Index" asp-route-id="0" class="btn btn-primary w-100 mt-2"><i class="bi bi-arrow-left-circle"></i>Voltar</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Funcionario" asp-action="Index" class="btn btn-primary w-100 mt-2"><i class="bi bi-arrow-left-circle"></i>Voltar</a>
+                    }
+
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>

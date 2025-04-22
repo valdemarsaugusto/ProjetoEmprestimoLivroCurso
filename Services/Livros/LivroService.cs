@@ -166,5 +166,20 @@ namespace ProjetoEmprestimoLivroCurso.Services.Livros
             }
 
         }
+
+        public async Task<List<LivroModel>> BuscarLivrosFiltro(string pesquisar)
+        {
+            try
+            {
+                var livrosBanco = await _context.Livros
+                    .Where(l => l.Titulo.Contains(pesquisar) || l.Autor.Contains(pesquisar)).ToListAsync();
+
+                return livrosBanco;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

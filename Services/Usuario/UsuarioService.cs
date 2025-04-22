@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using ProjetoEmprestimoLivroCurso.Data;
 using ProjetoEmprestimoLivroCurso.Dto.Usuario;
 using ProjetoEmprestimoLivroCurso.Models;
@@ -10,12 +11,28 @@ namespace ProjetoEmprestimoLivroCurso.Services.Usuario
     {
         private readonly AppDbContent _context;
         private readonly IAutenticacaoInterface _autenticacaoInterface;
+        private readonly IMapper _mapper;
 
-        public UsuarioService(AppDbContent context, IAutenticacaoInterface autenticacaoInterface)
+        public UsuarioService(AppDbContent context, IAutenticacaoInterface autenticacaoInterface, IMapper mapper)
         {
             _context = context;
             _autenticacaoInterface = autenticacaoInterface;
+            _mapper = mapper;
         }
+
+        public Task<UsuarioModel> BuscarUsuarioPorId(int? id)
+        {
+            try
+            {
+                var usuario = _context.Usuarios.Include(e => e.Endereco).FirstOrDefaultAsync(usuarioBanco => usuarioBanco.Id == id);
+                return usuario;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<List<UsuarioModel>> BuscarUsuarios(int? id)
         {
             try
@@ -75,6 +92,63 @@ namespace ProjetoEmprestimoLivroCurso.Services.Usuario
 
                 return usuarioCriacaoDto;
 
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<UsuarioModel> Editar(UsuarioEditarDto usuarioEditarDto)
+        {
+            try
+            {
+                var usuarioEditarBanco = await _context.Usuarios.Include(e => e.Endereco).FirstOrDefaultAsync(usuarioBanco => usuarioBanco.Id == usuarioEditarDto.Id);
+                if (usuarioEditarBanco != null)
+                {
+                    usuarioEditarBanco.Turno = usuarioEditarDto.Turno;
+                    usuarioEditarBanco.Perfil = usuarioEditarDto.Perfil;
+                    usuarioEditarBanco.NomeCompleto = usuarioEditarDto.NomeCompleto;
+                    usuarioEditarBanco.Usuario = usuarioEditarDto.Usuario;
+                    usuarioEditarBanco.Email = usuarioEditarDto.Email;
+                    usuarioEditarBanco.DataAlteracao = DateTime.Now;
+                    usuarioEditarBanco.Endereco = _mapper.Map<EnderecoModel>(usuarioEditarDto.Endereco);
+
+                    _context.Update(usuarioEditarBanco);
+
+                    await _context.SaveChangesAsync();
+
+                    return usuarioEditarBanco;
+                }
+
+                return usuarioEditarBanco;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<UsuarioModel> MudarSituacaoUsuario(int id)
+        {
+            try
+            {
+                var usuarioMudarSituacao = await _context.Usuarios.FirstOrDefaultAsync(usuario => usuario.Id == id);
+
+                if (usuarioMudarSituacao.Situacao == true)
+                {
+                    usuarioMudarSituacao.Situacao = false;
+                    usuarioMudarSituacao.DataAlteracao = DateTime.Now;  
+                }else
+                {
+                    usuarioMudarSituacao.Situacao = true;
+                    usuarioMudarSituacao.DataAlteracao = DateTime.Now;  
+                }
+
+                _context.Update(usuarioMudarSituacao);
+                await _context.SaveChangesAsync();
+
+                return usuarioMudarSituacao;
             }
             catch (Exception ex)
             {
