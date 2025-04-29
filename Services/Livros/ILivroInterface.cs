@@ -10,6 +10,7 @@ namespace ProjetoEmprestimoLivroCurso.Services.Livros
 
         Task<LivroModel> Cadastrar(LivroCriacaoDto livroCriacaoDto, IFormFile foto);
         Task<LivroModel> BuscarLivroPorId(int? id);
+        Task<EmprestimoModel> BuscarLivroPorId(int? id, UsuarioModel usuarioSessao);
         Task<LivroModel> Editar(LivroEdicaoDto livroEdicaoDto, IFormFile? foto);
         Task<List<LivroModel>> BuscarLivrosFiltro(string pesquisar);
     }

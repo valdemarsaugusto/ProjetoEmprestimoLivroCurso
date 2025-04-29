@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjetoEmprestimoLivroCurso.Dto.Home;
+using ProjetoEmprestimoLivroCurso.Models;
 using ProjetoEmprestimoLivroCurso.Services.Home;
 using ProjetoEmprestimoLivroCurso.Services.Livros;
 using ProjetoEmprestimoLivroCurso.Services.Sessao;
@@ -20,7 +21,7 @@ public class HomeController : Controller
         _livroInterface = livroInterface;
     }
     [HttpGet]
-    public async Task<ActionResult> Index(string pesquisar = null)
+    public async Task<ActionResult<List<LivroModel>>> Index(string pesquisar = null)
     {
         var usuarioSessao = _sessaoInterface.BuscarSessao();
 
@@ -37,11 +38,13 @@ public class HomeController : Controller
         {
             var livrosBanco = await _livroInterface.BuscarLivros();
             return View(livrosBanco);
-        }else
+        }
+        else
         {
             var livrosBanco = await _livroInterface.BuscarLivrosFiltro(pesquisar);
-            return View(livrosBanco);   
+            return View(livrosBanco);
         }
+
     }
     [HttpGet]
     public ActionResult Login()
@@ -61,6 +64,33 @@ public class HomeController : Controller
         _sessaoInterface.RemoverSessao();
         TempData["MensagemSucesso"] = "Logout realizado com sucesso!";
         return RedirectToAction("Login", "Home");
+    }
+
+    [HttpGet]
+    public async Task<ActionResult> Detalhes(int? Id)
+    {
+        var usuarioSessao = _sessaoInterface.BuscarSessao();
+
+        if (usuarioSessao != null)
+        {
+            ViewBag.UsuarioLogado = usuarioSessao.Id;
+            ViewBag.LayoutPagina = "_Layout";
+        }
+        else
+        {
+            ViewBag.LayoutPagina = "_LayoutDeslogada";
+        }
+
+        var livro = await _livroInterface.BuscarLivroPorId(Id, usuarioSessao);
+        if (livro.Usuario != null)
+        {
+            if(livro.Usuario.Emprestimos != null)
+            {
+                ViewBag.Emprestimos = "Sem Emprestimos";
+            }   
+        }
+
+        return View(livro);
     }
 
     [HttpPost]

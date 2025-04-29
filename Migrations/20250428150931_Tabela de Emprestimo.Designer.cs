@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoEmprestimoLivroCurso.Data;
 
@@ -11,9 +12,11 @@ using ProjetoEmprestimoLivroCurso.Data;
 namespace ProjetoEmprestimoLivroCurso.Migrations
 {
     [DbContext(typeof(AppDbContent))]
-    partial class AppDbContentModelSnapshot : ModelSnapshot
+    [Migration("20250428150931_Tabela de Emprestimo")]
+    partial class TabeladeEmprestimo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,7 +51,7 @@ namespace ProjetoEmprestimoLivroCurso.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Emprestimos");
+                    b.ToTable("EmprestimoModel");
                 });
 
             modelBuilder.Entity("ProjetoEmprestimoLivroCurso.Models.EnderecoModel", b =>

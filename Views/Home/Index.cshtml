@@ -1,6 +1,10 @@
 ﻿@using ProjetoEmprestimoLivroCurso.Models
 @model IEnumerable<LivroModel>
 
+@{
+    Layout = ViewBag.LayoutPagina;
+}
+
 @if (TempData["MensagemErro"] != null)
 {
     <div class="alert alert-danger text-dark" role="alert">
@@ -43,7 +47,7 @@
                         <div class="card-body">
                             <h5 class="card-title">@livro.Titulo</h5>
                             <p class="cad-text">@livro.Autor</p>
-                            <a class="btn btn-primary w-100" style="font-size:16px" asp-action="Detalhes" asp-controller="Home" asp-route-id="@livro.Id"></a>
+                            <a class="btn btn-primary w-100" style="font-size:16px" asp-action="Detalhes" asp-controller="Home" asp-route-id="@livro.Id">DETALHES</a>
 
                         </div>
 
