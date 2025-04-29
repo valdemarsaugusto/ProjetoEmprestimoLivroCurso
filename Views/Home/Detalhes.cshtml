@@ -8,12 +8,14 @@
 
 <div class="container d-flex gap-5 justify-content-center align-items-center mt-5">
     <div class="img">
-        <img src="/imagem/@Model.Livro.Capa" style="width:350px; height:550px; border-radius:10px"/>
+        <img src="/imagem/@Model.Livro.Capa" style="width:350px; height:350px; border-radius:10px"/>
     </div>
-    <h2 style="font-size:22px">@Model.Livro.Titulo</h2>
-    <h3>@Model.Livro.Autor</h3>
-    <p>@Model.Livro.Descricao</p>
-    <h5>Ano publicação: @Model.Livro.AnoPublicacao</h5>
+    <div>
+        <h2 style="font-size:22px">@Model.Livro.Titulo</h2>
+        <h3>@Model.Livro.Autor</h3>
+        <p>@Model.Livro.Descricao</p>
+        <h5>Ano publicação: @Model.Livro.AnoPublicacao</h5>
+    </div>
 
     <div>
         <p>Quantidade em estoque: @Model.Livro.QuantidadeEmEstoque</p>
@@ -24,10 +26,7 @@
             {
                 @if(ViewBag.Emprestimos != "SemEmprestimos")
                 {
-                    @if(Model.Usuario.Emprestimos
-                .Where(emprestimo => emprestimo.LivroId == Model.Livro.Id 
-                    && emprestimo.DataDevolucao == null 
-                    && emprestimo.Usuario.Id == ViewBag.UsuarioLogado).Count() > 0)
+                    @if(Model.Usuario.Emprestimos.Where(emprestimo => emprestimo.LivroId == Model.Livro.Id && emprestimo.DataDevolucao == null && emprestimo.Usuario.Id == ViewBag.UsuarioLogado).Count() > 0)
                     {
                         <button class="btn btn-warm w-10" style="border-radius:10px" disabled>Você já está com este livro emprestado.</button>
                     }

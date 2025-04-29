@@ -84,9 +84,9 @@ public class HomeController : Controller
         var livro = await _livroInterface.BuscarLivroPorId(Id, usuarioSessao);
         if (livro.Usuario != null)
         {
-            if(livro.Usuario.Emprestimos != null)
+            if(livro.Usuario.Emprestimos == null)
             {
-                ViewBag.Emprestimos = "Sem Emprestimos";
+                ViewBag.Emprestimos = "SemEmprestimos";
             }   
         }
 

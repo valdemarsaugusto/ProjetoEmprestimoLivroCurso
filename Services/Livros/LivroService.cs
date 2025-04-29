@@ -114,7 +114,7 @@ namespace ProjetoEmprestimoLivroCurso.Services.Livros
                         .Include(usuario => usuario.Usuario)    
                         .FirstOrDefaultAsync(emprestimo => emprestimo.Livro.Id == id);
 
-                    if (emprestimoSemUsuario != null)
+                    if (emprestimoSemUsuario == null)
                     {
                         var livro = await BuscarLivroPorId(id);
 
@@ -126,21 +126,18 @@ namespace ProjetoEmprestimoLivroCurso.Services.Livros
 
                         return emprestimoBanco;
                     }
-                    else
-                    {
-                        var emprestimoSemUsuarioGuga = new EmprestimoModel
-                        {
-                            Livro = null,
-                            Usuario = null
-                        };
-                        return emprestimoSemUsuarioGuga;
-                    }
+
+                    return emprestimoSemUsuario;
+
                 }
 
                 //usuário logado
                 var emprestimo = await _context.Emprestimos
                     .Include(livro => livro.Livro)
-                    .FirstOrDefaultAsync(emprestimo => emprestimo.Livro.Id == id && emprestimo.Usuario.Id == usuarioSessao.Id);
+                    .Include(usuario => usuario.Usuario)
+                    .FirstOrDefaultAsync(emprestimo => emprestimo.Livro.Id == id 
+                            && emprestimo.DataDevolucao == null
+                            && emprestimo.Usuario.Id == usuarioSessao.Id);
 
                 if (emprestimo == null)
                 {
