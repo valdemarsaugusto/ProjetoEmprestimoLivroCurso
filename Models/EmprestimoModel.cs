@@ -10,8 +10,9 @@ namespace ProjetoEmprestimoLivroCurso.Models
         public UsuarioModel Usuario { get; set; }
         public int LivroId { get; set; }
         [JsonIgnore]
-        public LivroModel Livro { get; set; }   
-        public DateTime DataDevolucao { get; set; } 
+        public LivroModel Livro { get; set; }
+        public DateTime DataEmprestimo { get; set; } = DateTime.Now;
+        public DateTime? DataDevolucao { get; set; } 
 
     }
 }
