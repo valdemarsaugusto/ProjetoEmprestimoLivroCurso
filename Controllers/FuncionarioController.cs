@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjetoEmprestimoLivroCurso.Filtros;
 using ProjetoEmprestimoLivroCurso.Services.Usuario;
 
 namespace ProjetoEmprestimoLivroCurso.Controllers
 {
+    [UsuarioLogado]
+    [UsuarioLogadoCliente]
     public class FuncionarioController : Controller
     {
         public IUsuarioInterface _usuarioInterface;

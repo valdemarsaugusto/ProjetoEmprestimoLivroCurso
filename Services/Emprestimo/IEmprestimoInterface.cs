@@ -8,6 +8,7 @@ namespace ProjetoEmprestimoLivroCurso.Services.Emprestimo
 
         Task<List<EmprestimoModel>> BuscarEmprestimosFiltro(UsuarioModel usuarioSessao, string pesquisar);
         Task<List<EmprestimoModel>> BuscarEmprestimos(UsuarioModel usuarioSessao);
+        Task<List<EmprestimoModel>> BuscarEmprestimosGeral(string tipo  = null);
 
         Task<RespostaModel<EmprestimoModel>> Devolver(int id);
     }

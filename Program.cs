@@ -7,6 +7,7 @@ using ProjetoEmprestimoLivroCurso.Services.Autenticacao;
 using ProjetoEmprestimoLivroCurso.Services.Sessao;
 using ProjetoEmprestimoLivroCurso.Services.Home;
 using ProjetoEmprestimoLivroCurso.Services.Emprestimo;
+using ProjetoEmprestimoLivroCurso.Services.Relatorio;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,7 @@ builder.Services.AddScoped<IAutenticacaoInterface, AutenticacaoService>();
 builder.Services.AddScoped<ISessaoInterface, SessaoService>();
 builder.Services.AddScoped<IHomeInterface, HomeService>();
 builder.Services.AddScoped<IEmprestimoInterface, EmprestimoService>();
+builder.Services.AddScoped<IRelatorioInterface, RelatorioService>();
 
 builder.Services.AddAutoMapper(typeof(Program));
 

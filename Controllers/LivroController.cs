@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using ProjetoEmprestimoLivroCurso.Dto;
 using ProjetoEmprestimoLivroCurso.Dto.Livro;
+using ProjetoEmprestimoLivroCurso.Filtros;
 using ProjetoEmprestimoLivroCurso.Models;
 using ProjetoEmprestimoLivroCurso.Services.Livros;
 
 namespace ProjetoEmprestimoLivroCurso.Controllers
 {
+    [UsuarioLogado]
+    [UsuarioLogadoCliente]
     public class LivroController : Controller
     {
         private readonly ILivroInterface _livroInterface;

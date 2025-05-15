@@ -13,7 +13,7 @@ namespace ProjetoEmprestimoLivroCurso.Models
         public string Usuario { get; set; } = string.Empty;
         [Required(ErrorMessage = "O campo Email é obrigatório.")]
         public string Email { get; set; } = string.Empty;
-        [Required]  
+        [Required]
         public bool Situacao { get; set; } = true;
         [Required]
         public PerfilEnum Perfil { get; set; }

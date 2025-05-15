@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjetoEmprestimoLivroCurso.Filtros;
 using ProjetoEmprestimoLivroCurso.Services.Emprestimo;
 using ProjetoEmprestimoLivroCurso.Services.Sessao;
 using ProjetoEmprestimoLivroCurso.Services.Usuario;
 
 namespace ProjetoEmprestimoLivroCurso.Controllers
 {
+    [UsuarioLogado]
     public class ClienteController : Controller
     {
         private readonly IUsuarioInterface _usuarioInterface;
@@ -24,6 +26,7 @@ namespace ProjetoEmprestimoLivroCurso.Controllers
             return View(clientes);
         }
 
+        [UsuarioLogadoAdministrador]
         public async Task<ActionResult> Perfil(string pesquisar = null, string filtro = "NDevolvidos")
         {
             var sessaoUsuario = _sessaoInterface.BuscarSessao();    
